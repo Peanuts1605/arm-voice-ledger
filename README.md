@@ -104,6 +104,15 @@ It checks the desktop and mobile paths through transcription, evidence
 selection, decision creation, local source replay, JSON export, cleared-state
 behavior, and browser console errors.
 
+To create the short evidence walkthrough from those real rendered states:
+
+```bash
+./scripts/make-evidence-walkthrough.sh
+```
+
+See [the demo evidence note](docs/ARM_VOICE_LEDGER_DEMO_EVIDENCE_2026-07-20.md)
+for the exact verified flow and current video state.
+
 ## Local tests
 
 ```bash
