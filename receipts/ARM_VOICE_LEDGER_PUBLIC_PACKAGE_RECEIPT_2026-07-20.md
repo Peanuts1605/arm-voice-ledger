@@ -49,6 +49,8 @@ video remains recommended, not required by the official rules.
 
 ## Shared proof reconciliation
 
-- Drive path: `PENDING`
-- Notion pointer: `PENDING`
-- Re-mirrored reconciled receipt: `PENDING`
+- Drive path: `TMN_NAUMIO_HQ/06_DELIVERY/ARM-VOICE-LEDGER-PUBLIC-PACKAGE-2026-07-20/`
+- Notion pointer: <https://app.notion.com/p/3a3b143d2917815593e5ca76ecdc5fc3>
+- Re-mirrored reconciled receipt: the helper preserves the prior receipt and
+  writes a timestamped reconciled copy with matching SHA-256 recorded in its
+  delivery manifest.
