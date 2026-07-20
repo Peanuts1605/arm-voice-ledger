@@ -1,0 +1,4 @@
+# Versions measured in the Forge vertical proof on 2026-07-20.
+mlx==0.32.0
+mlx-whisper==0.4.3
+imageio-ffmpeg==0.6.0

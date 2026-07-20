@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#eaf0ed" />
+    <link rel="icon" href="data:," />
+    <title>Arm Voice Ledger</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <div class="brand-lockup">
+          <span class="brand-mark" aria-hidden="true">AV</span>
+          <div>
+            <p class="eyebrow">Local listening desk</p>
+            <h1>Arm Voice Ledger</h1>
+          </div>
+        </div>
+        <div class="status-chip" id="runtime-status" aria-live="polite">Checking local model</div>
+      </header>
+
+      <section class="intro" aria-labelledby="intro-title">
+        <p class="eyebrow">Private audio, useful decisions</p>
+        <h2 id="intro-title">A voice note becomes a decision only when you can point back to the moment that earned it.</h2>
+        <p class="intro-copy">Choose a short WAV. The transcript, timestamped evidence, and editable ledger stay on this machine. Nothing is sent to an application server.</p>
+      </section>
+
+      <section class="workbench" aria-label="Voice note to ledger workflow">
+        <section class="source-panel panel" aria-labelledby="source-title">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">01 Source</p>
+              <h2 id="source-title">Choose a voice note</h2>
+            </div>
+            <span class="small-status" id="source-status">No audio loaded</span>
+          </div>
+          <label class="drop-target" for="audio-input" id="drop-target">
+            <strong>Choose a WAV</strong>
+            <span>Short public-safe audio only. The file is removed after local transcription.</span>
+            <input id="audio-input" type="file" accept="audio/wav,audio/x-wav" />
+          </label>
+          <div class="source-detail" id="source-detail">No source selected.</div>
+          <div class="source-player-wrap" id="source-player-wrap" hidden>
+            <p class="eyebrow">Local source playback</p>
+            <audio id="source-player" controls preload="metadata"></audio>
+            <p class="player-note">This browser-tab copy lets you revisit a selected moment. The server copy is removed after transcription.</p>
+          </div>
+          <button class="primary-action" id="transcribe-button" type="button" disabled>Transcribe locally</button>
+          <p class="privacy-note">Model cache may already be on this device. Your selected WAV is not retained.</p>
+        </section>
+
+        <section class="transcript-panel panel" aria-labelledby="transcript-title">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">02 Evidence</p>
+              <h2 id="transcript-title">Transcript with moments</h2>
+            </div>
+            <span class="small-status" id="metrics-status">Waiting</span>
+          </div>
+          <div class="transcript-empty" id="transcript-empty">The transcript will appear here with tappable timestamps.</div>
+          <div class="word-stream" id="word-stream" aria-live="polite"></div>
+          <div class="selection-bar" id="selection-bar" hidden>
+            <span id="selection-copy">Select a first and last word to make a ledger row.</span>
+            <button class="text-button" id="clear-selection" type="button">Clear</button>
+          </div>
+        </section>
+
+        <section class="ledger-panel panel" aria-labelledby="ledger-title">
+          <div class="panel-heading">
+            <div>
+              <p class="eyebrow">03 Decision ledger</p>
+              <h2 id="ledger-title">Keep only what matters</h2>
+            </div>
+            <span class="small-status" id="ledger-count">0 rows</span>
+          </div>
+          <form id="ledger-form" class="ledger-form">
+            <label>
+              Row type
+              <select id="row-type">
+                <option value="Decision">Decision</option>
+                <option value="Next action">Next action</option>
+                <option value="Question">Question</option>
+              </select>
+            </label>
+            <label>
+              Plain-language note
+              <input id="row-note" type="text" maxlength="180" placeholder="What should survive this voice note?" />
+            </label>
+            <button class="secondary-action" type="submit" id="create-row" disabled>Create from selected words</button>
+          </form>
+          <div class="ledger-empty" id="ledger-empty">Select a short evidence range in the transcript, then create an editable row.</div>
+          <ol class="ledger-list" id="ledger-list"></ol>
+          <button class="export-action" id="export-button" type="button" disabled>Export local JSON</button>
+        </section>
+      </section>
+
+      <section class="proof-strip" aria-label="Local proof details">
+        <div><span>Inference</span><strong id="proof-model">Local model cache</strong></div>
+        <div><span>Network</span><strong id="proof-network">Checking</strong></div>
+        <div><span>Audio retention</span><strong>None after request</strong></div>
+      </section>
+    </main>
+    <template id="ledger-row-template">
+      <li class="ledger-row">
+        <div class="ledger-row-topline"><span class="row-kind"></span><button class="row-time" type="button"></button></div>
+        <p class="row-quote"></p>
+        <label>Editable note<input class="row-note-input" type="text" maxlength="180" /></label>
+        <button class="delete-row" type="button">Remove row</button>
+      </li>
+    </template>
+    <script type="module" src="/app.js"></script>
+  </body>
+</html>
