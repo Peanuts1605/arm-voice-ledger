@@ -15,6 +15,26 @@ Voice notes are easy to make and hard to recover later. Arm Voice Ledger turns
 a local recording into an editable decision ledger without an application
 server audio path.
 
+## Why Arm64
+
+Arm Voice Ledger is designed for the Mobile AI track of the Arm Create: AI
+Optimization Challenge. It uses MLX Whisper on Apple silicon to keep short
+voice-note transcription on the device, then turns word-level timestamps into
+replayable, editable decision rows. The optimization is deliberately practical:
+after the first local cache warm, the normal runner forces the model cache
+offline so the proof can be repeated without an application-server audio path.
+
+The checked vertical proof ran on two Arm64 Macs:
+
+- Forge: Apple M2 Pro / 16 GiB unified memory, cached offline model, 16
+  timestamped words from a synthetic fixture.
+- Current replay: Apple M4 / 32 GiB unified memory, cached offline model, 16
+  timestamped words, source replay, ledger export, and no browser console
+  errors on both desktop and mobile viewports.
+
+See [the contest submission draft](docs/ARM_CONTEST_SUBMISSION.md) for the
+measured proof, limits, and a judge-ready description.
+
 ## Apple-silicon setup
 
 This first vertical proof targets an Apple-silicon Mac. It was measured on the
@@ -70,6 +90,20 @@ VOICE_LEDGER_URL=http://127.0.0.1:18788 ./.venv/bin/python scripts/forge_smoke.p
 The smoke test checks that timestamped words return while the model cache is
 forced offline and that audio retention is reported as false.
 
+## Optional browser proof
+
+With the server running on port `18788` and the synthetic fixture present in
+your local checkout, run the interaction gate used for the screenshot evidence:
+
+```bash
+npm install
+ARM_VOICE_LEDGER_URL=http://127.0.0.1:18788 npm run test:browser
+```
+
+It checks the desktop and mobile paths through transcription, evidence
+selection, decision creation, local source replay, JSON export, cleared-state
+behavior, and browser console errors.
+
 ## Local tests
 
 ```bash
@@ -82,6 +116,8 @@ python3 -m unittest discover -s tests -v
 - The included Forge run uses synthetic/public-safe audio.
 - The repository does not include voice recordings. Use your own
   non-sensitive WAV for first-run and smoke checks.
+- This is a focused local workflow, not a claim about multilingual accuracy,
+  noisy recordings, long meetings, battery life, or mobile-phone deployment.
 - No quality, privacy, multilingual, or long-recording claim is made beyond
   the tested local cached-model path.
 - The app creates no user account and writes no transcript or ledger to a

@@ -40,9 +40,12 @@ class ServerContractTests(unittest.TestCase):
     def test_listening_desk_exposes_local_source_playback(self):
         document = (server.WEB_ROOT / "index.html").read_text(encoding="utf-8")
         behavior = (server.WEB_ROOT / "app.js").read_text(encoding="utf-8")
+        styles = (server.WEB_ROOT / "styles.css").read_text(encoding="utf-8")
         self.assertIn('id="source-player"', document)
         self.assertIn("URL.createObjectURL(file)", behavior)
         self.assertIn("cueSource", behavior)
+        self.assertIn("sourcePlayer.play()", behavior)
+        self.assertIn("[hidden] { display: none !important; }", styles)
 
     def test_configures_a_private_ffmpeg_path(self):
         fake_module = type("FakeImageIoFfmpeg", (), {"get_ffmpeg_exe": staticmethod(lambda: "/private/ffmpeg")})

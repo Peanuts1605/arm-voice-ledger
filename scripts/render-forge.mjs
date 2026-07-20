@@ -1,7 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import playwright from "../../bridgework/node_modules/playwright/index.js";
+import playwright from "playwright";
 
 const { chromium } = playwright;
 
@@ -39,7 +39,12 @@ async function exercise(page) {
   await page.locator("#row-note").fill("Follow up on the interview next step.");
   await page.getByRole("button", { name: "Create from selected words" }).click();
   await page.locator(".row-time").click();
-  const ledgerCueSeconds = await page.locator("#source-player").evaluate((player) => player.currentTime);
+  const ledgerCue = await page.locator("#source-player").evaluate((player) => ({
+    currentTime: player.currentTime,
+    paused: player.paused,
+  }));
+  const selectionHiddenAfterRow = await page.locator("#selection-bar").evaluate((bar) => bar.hidden);
+  const createDisabledAfterRow = await page.getByRole("button", { name: "Create from selected words" }).isDisabled();
   const download = page.waitForEvent("download");
   await page.getByRole("button", { name: "Export local JSON" }).click();
   await (await download).saveAs(path.join(demoDirectory, "synthetic-forge-ledger.json"));
@@ -50,7 +55,10 @@ async function exercise(page) {
     runtime: await page.locator("#runtime-status").textContent(),
     browserSourceIsLocal: browserSourceUrl?.startsWith("blob:") || false,
     transcriptCueSeconds,
-    ledgerCueSeconds,
+    ledgerCueSeconds: ledgerCue.currentTime,
+    ledgerCueIsPlaying: !ledgerCue.paused,
+    selectionHiddenAfterRow,
+    createDisabledAfterRow,
   };
 }
 
@@ -75,6 +83,12 @@ if (
   || mobileResult.transcriptCueSeconds <= 0
   || desktopResult.ledgerCueSeconds <= 0
   || mobileResult.ledgerCueSeconds <= 0
+  || !desktopResult.ledgerCueIsPlaying
+  || !mobileResult.ledgerCueIsPlaying
+  || !desktopResult.selectionHiddenAfterRow
+  || !mobileResult.selectionHiddenAfterRow
+  || !desktopResult.createDisabledAfterRow
+  || !mobileResult.createDisabledAfterRow
 ) {
   throw new Error(`render_check_failed:${JSON.stringify(result)}`);
 }

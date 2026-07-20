@@ -1,0 +1,11 @@
+{
+  "name": "arm-voice-ledger",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test:browser": "node scripts/render-forge.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.61.1"
+  }
+}

@@ -84,6 +84,8 @@ function renderWords() {
 function cueSource(seconds) {
   if (!state.file) return;
   elements.sourcePlayer.currentTime = Number(seconds || 0);
+  const playback = elements.sourcePlayer.play();
+  if (playback) playback.catch(() => {});
   elements.sourcePlayer.focus({ preventScroll: true });
 }
 
@@ -111,8 +113,8 @@ function renderLedger() {
     const item = fragment.querySelector(".ledger-row");
     fragment.querySelector(".row-kind").textContent = row.type;
     const timeButton = fragment.querySelector(".row-time");
-    timeButton.textContent = `Cue ${formatTime(row.start)}`;
-    timeButton.title = `Cue the local source at ${formatTime(row.start)}`;
+    timeButton.textContent = `Replay ${formatTime(row.start)}`;
+    timeButton.title = `Replay the local source from ${formatTime(row.start)}`;
     timeButton.addEventListener("click", () => cueSource(row.start));
     fragment.querySelector(".row-quote").textContent = `“${row.quote}”`;
     const noteInput = fragment.querySelector(".row-note-input");
