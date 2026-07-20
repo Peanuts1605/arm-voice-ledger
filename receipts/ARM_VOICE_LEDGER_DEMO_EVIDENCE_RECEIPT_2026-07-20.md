@@ -31,7 +31,8 @@
 - Initial Drive mirror run: `20260720T235637143Z`
 - Initial video mirror SHA-256: `9375d8dc91a2db561ac7a6b481018d978f4b47a31b2f6f3d55df042775e0ff73`
 - Notion receipt: https://app.notion.com/p/3a3b143d291781e5ac7bec63215ba568
-- Reconciled receipt mirror: pending final mirror run
+- Reconciled receipt mirror: `ARM_VOICE_LEDGER_DEMO_EVIDENCE_RECEIPT_2026-07-20.reconciled-20260720T235748590Z.md`
+  (SHA-256 `9eb7048026ba7a010b03b37b3d45a3e854e80c9feb998394fd190bb8e24095e5`)
 
 ## Notes
 
