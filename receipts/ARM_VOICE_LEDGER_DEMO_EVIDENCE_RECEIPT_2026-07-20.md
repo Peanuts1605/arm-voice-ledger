@@ -3,7 +3,7 @@
 - Receipt ID: `ARM-VOICE-LEDGER-DEMO-EVIDENCE-2026-07-20`
 - Agent: ORION_L
 - Date: 2026-07-20
-- Status: local proof verified; shared-proof reconciliation in progress
+- Status: complete
 - Decision: `READY_FOR_PUBLIC_VIDEO_UPLOAD`
 
 ## Artifact
@@ -27,9 +27,11 @@
 
 ## Shared Proof Reconciliation
 
-- Drive mirror: pending
-- Notion pointer: pending
-- Reconciled receipt mirror: pending
+- Drive delivery folder: `TMN_NAUMIO_HQ/06_DELIVERY/ARM-VOICE-LEDGER-DEMO-EVIDENCE-2026-07-20`
+- Initial Drive mirror run: `20260720T235637143Z`
+- Initial video mirror SHA-256: `9375d8dc91a2db561ac7a6b481018d978f4b47a31b2f6f3d55df042775e0ff73`
+- Notion receipt: https://app.notion.com/p/3a3b143d291781e5ac7bec63215ba568
+- Reconciled receipt mirror: pending final mirror run
 
 ## Notes
 
