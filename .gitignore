@@ -5,6 +5,7 @@ node_modules/
 .tools/
 .DS_Store
 demo/*.wav
+demo/*.aiff
 demo/*.json
 demo/*.mp4
 demo/evidence/

@@ -90,6 +90,24 @@ VOICE_LEDGER_URL=http://127.0.0.1:18788 ./.venv/bin/python scripts/forge_smoke.p
 The smoke test checks that timestamped words return while the model cache is
 forced offline and that audio retention is reported as false.
 
+## Reproducible local evidence
+
+The repository intentionally contains no recorded voice. On macOS, generate a
+short public-safe fixture locally, then capture a machine-readable run receipt:
+
+```bash
+./scripts/make-synthetic-fixture.sh demo/synthetic-forge-fixture.wav
+VOICE_LEDGER_URL=http://127.0.0.1:8788 \
+  ./.venv/bin/python scripts/forge_smoke.py \
+  --receipt demo/arm-voice-ledger-run.json \
+  demo/synthetic-forge-fixture.wav
+```
+
+The ignored receipt records the local machine, Python and pinned package
+versions, model, elapsed time, peak resident memory, word count, offline-cache
+state, and audio-retention result. It is for an independent replay, not a
+claim that timing will be identical across machines.
+
 ## Optional browser proof
 
 With the server running on port `18788` and the synthetic fixture present in
@@ -122,9 +140,10 @@ python3 -m unittest discover -s tests -v
 ## Boundaries of this proof
 
 - WAV only, up to 8 MB.
-- The included Forge run uses synthetic/public-safe audio.
+- The checked Forge run uses synthetic/public-safe audio.
 - The repository does not include voice recordings. Use your own
-  non-sensitive WAV for first-run and smoke checks.
+  non-sensitive WAV, or generate the local fixture above, for first-run and
+  smoke checks.
 - This is a focused local workflow, not a claim about multilingual accuracy,
   noisy recordings, long meetings, battery life, or mobile-phone deployment.
 - No quality, privacy, multilingual, or long-recording claim is made beyond

@@ -54,8 +54,9 @@ That produces a practical Mobile AI optimization story:
 ## Measured proof
 
 All measurements below use a local synthetic/public-safe fixture. No personal,
-customer, or client audio was used. The fixture is intentionally not committed
-to the public repository.
+customer, or client audio was used. The fixture is not committed to the public
+repository; a Mac-local source generator is included for independent smoke
+replays.
 
 | Surface | Result |
 | --- | --- |
@@ -79,6 +80,21 @@ Then use the explicit smoke command with any short public-safe WAV:
 VOICE_LEDGER_URL=http://127.0.0.1:8788 \
   ./.venv/bin/python scripts/forge_smoke.py /path/to/public-safe-fixture.wav
 ```
+
+On macOS, the public-safe proof input can be regenerated locally and written to
+an ignored machine-readable receipt instead:
+
+```bash
+./scripts/make-synthetic-fixture.sh demo/synthetic-forge-fixture.wav
+VOICE_LEDGER_URL=http://127.0.0.1:8788 \
+  ./.venv/bin/python scripts/forge_smoke.py \
+  --receipt demo/arm-voice-ledger-run.json \
+  demo/synthetic-forge-fixture.wav
+```
+
+That receipt records the local runtime, pinned dependencies, returned word
+count, model metrics, offline-cache state, and audio-retention result. It does
+not imply identical timings across machines.
 
 The server binds to `127.0.0.1` only. The health endpoint reports the selected
 model, whether the cache is offline, and that request audio is not retained.

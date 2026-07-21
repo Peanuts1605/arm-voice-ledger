@@ -1,0 +1,40 @@
+# Arm Voice Ledger Reproducible Smoke Proof Receipt
+
+- Receipt ID: `ARM-VOICE-LEDGER-REPRODUCIBLE-SMOKE-PROOF-2026-07-20`
+- Agent: ORION_L
+- Date: 2026-07-20
+- Status: pending shared-proof reconciliation
+- Decision: `REPRODUCIBLE_SMOKE_PROOF_PASSED`
+
+## Artifact
+
+- Decision note: `docs/ARM_VOICE_LEDGER_REPRODUCIBLE_SMOKE_PROOF_2026-07-20.md`
+- Public-safe fixture generator: `scripts/make-synthetic-fixture.sh`
+- JSON receipt producer: `scripts/forge_smoke.py --receipt <path>`
+- Receipt regression test: `tests/test_forge_smoke.py`
+- Public source: https://github.com/Peanuts1605/arm-voice-ledger
+
+## Verification
+
+- Generated a local 16 kHz mono synthetic WAV with macOS `say` and `afconvert`.
+- Offline local smoke replay: 16 timestamped words; 140 ms; MLX Whisper tiny;
+  `offlineModelCache=true`; `audioPersisted=false`.
+- `python3 -m unittest discover -s tests -v`: 8 passed.
+- `ARM_VOICE_LEDGER_URL=http://127.0.0.1:18790 npm run test:browser`: passed
+  desktop and mobile interaction flows with no console errors.
+- `npm audit --omit=dev --audit-level=high`: 0 vulnerabilities.
+- Local runner: stopped after verification.
+
+## Scope
+
+- The generated WAV and JSON run receipt are local and Git-ignored.
+- No raw audio, transcript, model cache, credential, environment file, or
+  account data is included in this proof package.
+- This proof records a warm local measurement; it does not promise identical
+  performance on other hardware.
+
+## Shared Proof Reconciliation
+
+- Drive delivery folder: pending
+- Notion pointer: pending
+- Reconciled receipt mirror: pending

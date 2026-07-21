@@ -4,9 +4,43 @@ import base64
 import argparse
 import json
 import os
+import platform
 import sys
 import urllib.request
+from datetime import UTC, datetime
+from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
+
+
+def installed_version(package_name: str) -> str | None:
+    try:
+        return version(package_name)
+    except PackageNotFoundError:
+        return None
+
+
+def build_receipt(result: dict, fixture: Path, base_url: str) -> dict:
+    """Return the small, shareable record behind one local smoke run."""
+    return {
+        "schemaVersion": 1,
+        "generatedAt": datetime.now(UTC).isoformat(),
+        "runtime": {
+            "machine": platform.machine(),
+            "platform": platform.platform(),
+            "python": platform.python_version(),
+            "endpoint": base_url,
+        },
+        "dependencies": {
+            "mlx": installed_version("mlx"),
+            "mlx-whisper": installed_version("mlx-whisper"),
+            "imageio-ffmpeg": installed_version("imageio-ffmpeg"),
+        },
+        "input": {"fileName": fixture.name, "bytes": fixture.stat().st_size},
+        "result": {
+            "timestampedWords": len(result["words"]),
+            "metrics": result["metrics"],
+        },
+    }
 
 
 def main() -> None:
@@ -16,6 +50,11 @@ def main() -> None:
         "--expect-online",
         action="store_true",
         help="Verify a deliberate first-run cache warm instead of the normal offline replay.",
+    )
+    parser.add_argument(
+        "--receipt",
+        type=Path,
+        help="Write a shareable JSON record of this local smoke run.",
     )
     args = parser.parse_args()
     default_fixture = Path(__file__).resolve().parent.parent / "demo" / "synthetic-forge-fixture.wav"
@@ -40,7 +79,12 @@ def main() -> None:
     assert result["metrics"]["offlineModelCache"] is expected_offline
     assert result["metrics"]["audioPersisted"] is False
     assert len(result["words"]) > 0
-    print(json.dumps({"words": len(result["words"]), "metrics": result["metrics"], "transcript": result["transcript"]}, indent=2))
+    summary = {"words": len(result["words"]), "metrics": result["metrics"], "transcript": result["transcript"]}
+    if args.receipt:
+        args.receipt.parent.mkdir(parents=True, exist_ok=True)
+        args.receipt.write_text(json.dumps(build_receipt(result, fixture, base_url), indent=2) + "\n")
+        summary["receipt"] = str(args.receipt)
+    print(json.dumps(summary, indent=2))
 
 
 if __name__ == "__main__":
