@@ -128,6 +128,13 @@ To create the short evidence walkthrough from those real rendered states:
 ./scripts/make-evidence-walkthrough.sh
 ```
 
+For a compact contest companion cut that adds the product thesis and measured
+proof context while using those same real browser states:
+
+```bash
+./scripts/make-contest-demo.sh
+```
+
 See [the demo evidence note](docs/ARM_VOICE_LEDGER_DEMO_EVIDENCE_2026-07-20.md)
 for the exact verified flow and current video state.
 

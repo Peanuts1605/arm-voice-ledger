@@ -14,6 +14,21 @@ be paired with a brief narrated contest demo later without changing the app.
 - SHA-256: `9375d8dc91a2db561ac7a6b481018d978f4b47a31b2f6f3d55df042775e0ff73`
 - State: local proof asset; not yet uploaded to a public video host.
 
+## Contest Companion Cut
+
+The proof walkthrough now has a compact companion cut for a contest page or
+public video host. It uses only the same rendered browser-proof states and
+adds the product thesis plus the measured local-proof context; it does not add
+mocked UI or new product claims.
+
+- Video: `demo/arm-voice-ledger-contest-demo.mp4`
+- Format: H.264, 1920 x 1080, 30 fps, 24.4 seconds
+- Generator: `scripts/make-contest-demo.sh`
+- Captions: source, timestamped evidence, editable decision ledger, replay,
+  public MIT source, and local smoke run.
+- State: verified locally; ready for a future public upload, but not uploaded
+  as part of this work.
+
 ## What A Judge Sees
 
 1. **Choose a short local voice note**
@@ -30,6 +45,7 @@ created a ledger row, replayed its linked moment, and exported local JSON.
 PORT=18788 ./scripts/run-forge.sh
 ARM_VOICE_LEDGER_URL=http://127.0.0.1:18788 npm run test:browser
 ./scripts/make-evidence-walkthrough.sh
+./scripts/make-contest-demo.sh
 ```
 
 The test writes the source PNGs under `demo/evidence/`; the walkthrough script
