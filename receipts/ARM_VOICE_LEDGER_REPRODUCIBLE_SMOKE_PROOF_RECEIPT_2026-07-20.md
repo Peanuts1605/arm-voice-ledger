@@ -3,7 +3,7 @@
 - Receipt ID: `ARM-VOICE-LEDGER-REPRODUCIBLE-SMOKE-PROOF-2026-07-20`
 - Agent: ORION_L
 - Date: 2026-07-20
-- Status: pending shared-proof reconciliation
+- Status: complete
 - Decision: `REPRODUCIBLE_SMOKE_PROOF_PASSED`
 
 ## Artifact
@@ -35,6 +35,8 @@
 
 ## Shared Proof Reconciliation
 
-- Drive delivery folder: pending
-- Notion pointer: pending
-- Reconciled receipt mirror: pending
+- Drive delivery folder: `TMN_NAUMIO_HQ/06_DELIVERY/ARM-VOICE-LEDGER-REPRODUCIBLE-SMOKE-PROOF-2026-07-20`
+- Initial Drive mirror run: `20260721T001521110Z`
+- Initial receipt mirror SHA-256: `ec2ba1e2ee32abba0a22bfa5417a5fec6caf7af0ffa9b83aba1d227a15e88f66`
+- Notion pointer: https://app.notion.com/p/3a4b143d291781f081a4dab108b59811
+- Reconciled receipt mirror: pending final hash verification
