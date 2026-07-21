@@ -39,4 +39,5 @@
 - Initial Drive mirror run: `20260721T001521110Z`
 - Initial receipt mirror SHA-256: `ec2ba1e2ee32abba0a22bfa5417a5fec6caf7af0ffa9b83aba1d227a15e88f66`
 - Notion pointer: https://app.notion.com/p/3a4b143d291781f081a4dab108b59811
-- Reconciled receipt mirror: pending final hash verification
+- Reconciled receipt mirror: `ARM_VOICE_LEDGER_REPRODUCIBLE_SMOKE_PROOF_RECEIPT_2026-07-20.reconciled-20260721T001609574Z.md`
+  (SHA-256 `e3ac5bdf0003843ddfc2790e27a2b43cee99a20b34ec01d320f0b9854b3efcc1`)
